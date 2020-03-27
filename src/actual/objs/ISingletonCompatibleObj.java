@@ -6,5 +6,4 @@ public interface ISingletonCompatibleObj {
 
     void OnStart ();
     void OnEnd ();
-    ArrayList<?> getAll ();
 }

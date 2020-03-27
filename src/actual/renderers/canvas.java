@@ -1,5 +1,6 @@
 package actual.renderers;
 
+import actual.main;
 import actual.objs.Block;
 
 import javax.swing.*;
@@ -8,18 +9,27 @@ import java.util.ArrayList;
 
 public class canvas extends JComponent {
 
-    private int rowNo;
-
-    public canvas(Dimension size, int rowNo) {
-        setPreferredSize(size);
-        this.rowNo = rowNo;
+    public canvas() {
+        setPreferredSize(main.getOverallSize());
+        paint(getGraphics());
     }
 
     @Override
     public void paint(Graphics g) {
         super.paint(g);
 
-        int x = 0, y = 0;
-        ArrayList<Block> blocks;
+        int w = main.getBlockWidth(), h = main.getBlockHeight(), index = 0;
+        ArrayList<Block> blocks = Block.getAll();
+
+        for (int x = 0; x < main.getOverallSize().width; x += w) {
+            for (int y = 0; y < main.getOverallSize().height; y += h) {
+                if(index >= blocks.size()) break;
+
+                Block b = blocks.get(index);
+                index++;
+                g.drawImage(b, x, y, null);
+            }
+            if(index >= blocks.size()) break;
+        }
     }
 }

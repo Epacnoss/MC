@@ -1,14 +1,14 @@
 package actual.objs;
 
+import actual.overrides.ui.JBufferedImage;
+
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class Block extends BufferedImage implements ISingletonCompatibleObj {
+public class Block extends JBufferedImage implements ISingletonCompatibleObj {
 
     private static Dimension wh = new Dimension(0, 0);
     private static ArrayList<Block> blocks = new ArrayList<>();
-    private Color c;
     private static BlockType blockType;
 
     public static void setwh (Dimension nu) {
@@ -16,13 +16,7 @@ public class Block extends BufferedImage implements ISingletonCompatibleObj {
     }
 
     public Block(BlockType b) {
-        b
-
-        super(wh.width, wh.height, TYPE_INT_ARGB);
-        this.c = c;
-        getGraphics().setColor(c);
-        getGraphics().fillRect(0, 0, wh.width, wh.height);
-
+        super(BlockType.getImg(b), wh.width, wh.height);
         OnStart();
     }
 
@@ -36,8 +30,7 @@ public class Block extends BufferedImage implements ISingletonCompatibleObj {
         blocks.remove(this);
     }
 
-    @Override
-    public ArrayList<Block> getAll() {
+    public static ArrayList<Block> getAll() {
         return blocks;
     }
 }
